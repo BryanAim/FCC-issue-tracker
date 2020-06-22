@@ -52,7 +52,7 @@ module.exports = function (app) {
             console.error('Errror encountered', err);
             
           } else {
-            
+            res.json({issue})
           }
         })
       })
