@@ -70,6 +70,38 @@ module.exports = function (app) {
     
     .put(function (req, res){
       var project = req.params.project;
+      let id = req.body._id;
+      let updates = {
+        issue_title: req.body.issue_title || '',
+        issue_text: req.body.issue_text || '',
+        created_by: req.body.created_by || '',
+        assigned_to: req.body.assigned_to || '',
+      status_text: req.body.status_text || ''
+      }
+      // delete any empty props
+      for(let prop in updates){
+        if (updates[prop]==='') {
+          delete updates[prop]
+        }
+      }
+
+      if (Object.keys(updates).length===0) {
+        res.send("No updated fields sent");
+      } else {
+
+        updates.updated_on= new Date;
+        updates.open = req.body.open === 'false' ? false: true;
+        MongoClient.connect(CONNECTION_STRING, (err, client)=> {
+          let db = client.db('issue-tracker')
+          db.collection(project).findAndModify({_id: ObjectId(id)},
+          {}, {$set: updates},
+          {new: true},
+          (err, doc)=> {
+            (err) ? res.send('Could not update '+ id) : res.send('Successfully updated')
+          }
+          )
+        })
+      }
       
     })
     
