@@ -12,7 +12,17 @@ var expect = require('chai').expect;
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 
-const CONNECTION_STRING = process.env.DB; //MongoClient.connect(CONNECTION_STRING, function(err, db) {});
+require('dotenv').config()
+
+const CONNECTION_STRING = process.env.DB; 
+MongoClient.connect(CONNECTION_STRING, function(err, client) {
+  let db = client.db('issue-tracker')
+  if (err) {
+    return console.log("An error occured ", err)
+  }
+  console.log("Connected to database");
+  
+});
 
 module.exports = function (app) {
 
