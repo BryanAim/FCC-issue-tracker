@@ -26,9 +26,18 @@ module.exports = function (app) {
       var project = req.params.project;
 
       MongoClient.connect(CONNECTION_STRING, (err, client)=>{
+        let db = client.db('issue-tracker');
+
+        db.collection(project).find(query).toArray((err, doc)=>{
+          if (err) {
+            console.error("Error encountered ", err);
+            
+          } else {
+            res.send(doc)
+          }
+        })
 
       })
-      
       
     })
     
