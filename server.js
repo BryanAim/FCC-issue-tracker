@@ -48,7 +48,7 @@ app.use(function(req, res, next) {
 let PORT= process.env.PORT || 8000
 //Start our server and tests!
 app.listen(PORT, function () {
-  console.log("Listening on port " + process.env.PORT);
+  console.log("Listening on port " + PORT);
   if(process.env.NODE_ENV==='test') {
     console.log('Running Tests...');
     setTimeout(function () {
@@ -63,4 +63,4 @@ app.listen(PORT, function () {
   }
 });
 
-module.exports = app; //for testing
+module.exports = app; // for testing
