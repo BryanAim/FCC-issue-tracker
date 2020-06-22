@@ -8,6 +8,7 @@ var cors        = require('cors');
 var apiRoutes         = require('./routes/api.js');
 var fccTestingRoutes  = require('./routes/fcctesting.js');
 var runner            = require('./test-runner');
+const helmet = require('helmet');
 
 var app = express();
 
@@ -15,7 +16,9 @@ app.use('/public', express.static(process.cwd() + '/public'));
 
 app.use(cors({origin: '*'})); //For FCC testing purposes only
 
-
+// prevent cross-site scripting (XSS) attacks.
+app.use(helmet());
+app.use(helmet.xssFilter())
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
