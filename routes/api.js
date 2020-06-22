@@ -9,7 +9,7 @@
 'use strict';
 
 var expect = require('chai').expect;
-var MongoClient = require('mongodb');
+var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 
 const CONNECTION_STRING = process.env.DB; //MongoClient.connect(CONNECTION_STRING, function(err, db) {});
@@ -19,12 +19,30 @@ module.exports = function (app) {
   app.route('/api/issues/:project')
   
     .get(function (req, res){
+      let title = req.body.issue_title;
+      let text = req.body.issue_text;
+      let creator= req.body.created_by;
+      let assignedTo = req.body.assigned_to;
+      let status = req.body.status_text
+
       var project = req.params.project;
+
+      res.send('Hi')
+      
       
     })
     
     .post(function (req, res){
+      let title = req.body.issue_title;
+      let text = req.body.issue_text;
+      let creator= req.body.created_by;
+      let assignedTo = req.body.assigned_to;
+      let status = req.body.status_text
       var project = req.params.project;
+
+      console.log(creator);
+      
+      
       
     })
     
