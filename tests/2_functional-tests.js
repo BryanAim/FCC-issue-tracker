@@ -88,11 +88,23 @@ suite('Functional Tests', function() {
           assert.equal(res.status, 200);
           assert.equal(res.body._id, 'no updated field sent')
 
-          done()
+          done();
         })
       });
       
       test('One field to update', function(done) {
+        chai.request(server)
+        .post('/api/issues/test')
+        .send({
+          _id: id,
+          issue_title: 'updated issue title'
+        })
+        .end(function(err, res) {
+          assert.equal(res.status, 200);
+          assert.equal(res.text, 'Successfully updated issue title');
+          
+          done();
+        })
         
       });
       
