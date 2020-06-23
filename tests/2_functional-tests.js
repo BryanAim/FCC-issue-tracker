@@ -102,13 +102,26 @@ suite('Functional Tests', function() {
         .end(function(err, res) {
           assert.equal(res.status, 200);
           assert.equal(res.text, 'Successfully updated issue title');
-          
+
           done();
         })
         
       });
       
       test('Multiple fields to update', function(done) {
+        chai.request(server)
+        .post('api/issues/test')
+        .send({
+          _id: id,
+          issue_title: 'updated issue title',
+          issue_text: 'updated issue text'
+        })
+        .end(function(err, res) {
+          assert.equal(res.status, 200);
+          assert.equal(res.text, 'Successfully updated issue title and issue text');
+
+          done();
+        })
         
       });
       
